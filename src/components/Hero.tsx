@@ -7,6 +7,7 @@ const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   // Register GSAP plugins
   gsap.registerPlugin(TextPlugin);
@@ -76,32 +77,53 @@ const Hero = () => {
     };
   }, []);
 
-  // GSAP animations
+  // Enhanced GSAP animations
   useEffect(() => {
     if (containerRef.current) {
-      // Animate content elements
-      gsap.from(".hero-content h1 span", {
+      // Create a timeline for smoother sequencing
+      const tl = gsap.timeline();
+      
+      // Animate heading with text reveal and glow effect
+      tl.from(".hero-content h1 span", {
         y: 100,
         opacity: 0,
         stagger: 0.2,
         duration: 1,
         ease: "power3.out"
       });
+      
+      // Add a subtle glow animation to the heading
+      tl.to(".hero-content h1 span", {
+        textShadow: "0 0 15px rgba(255,255,255,0.5)",
+        duration: 1.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      }, "-=0.5");
 
-      gsap.from(".hero-content p", {
+      // Animate the paragraph
+      tl.from(".hero-content p", {
         y: 30,
         opacity: 0,
         duration: 1,
-        delay: 0.8,
         ease: "power2.out"
-      });
+      }, "-=0.5");
 
-      gsap.from(".hero-content .button-group", {
+      // Animate the buttons with a bounce effect
+      tl.from(".hero-content .button-group", {
         y: 20,
         opacity: 0,
         duration: 0.8,
-        delay: 1.2,
         ease: "back.out(1.7)"
+      }, "-=0.3");
+
+      // Animate the scroll indicator
+      gsap.to(scrollIndicatorRef.current, {
+        y: "-8px",
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
       });
     }
   }, []);
@@ -111,8 +133,8 @@ const Hero = () => {
       {/* Canvas background */}
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full bg-black" />
       
-      {/* Dark overlay for better text visibility */}
-      <div className="absolute inset-0 bg-black/60 z-[1]"></div>
+      {/* Enhanced dark overlay with gradient for better text visibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80 z-[1]"></div>
       
       {/* Main content */}
       <div ref={containerRef} className="container relative z-10 text-center hero-content">
@@ -128,23 +150,23 @@ const Hero = () => {
             <a 
               href="#services" 
               className="bg-street-white text-street-black px-8 py-4 rounded-full font-medium 
-              hover:bg-opacity-90 transition-all duration-300"
+              hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105"
             >
               Our Services
             </a>
             <a 
               href="#contact" 
               className="border border-street-silver px-8 py-4 rounded-full font-medium 
-              hover:bg-street-white hover:text-street-black transition-all duration-300"
+              hover:bg-street-white hover:text-street-black transition-all duration-300 transform hover:scale-105"
             >
               Get in Touch
             </a>
           </div>
         </div>
       </div>
-      <div className="absolute bottom-10 left-0 right-0 mx-auto w-6 h-10 z-10">
+      <div ref={scrollIndicatorRef} className="absolute bottom-10 left-0 right-0 mx-auto w-6 h-10 z-10">
         <div className="w-full h-full border-2 border-street-silver rounded-full flex items-start justify-center">
-          <span className="block w-1 h-2 bg-street-white rounded-full animate-bounce mt-2"></span>
+          <span className="block w-1 h-2 bg-street-white rounded-full mt-2"></span>
         </div>
       </div>
     </section>

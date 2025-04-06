@@ -141,6 +141,22 @@ export default {
 						opacity: '0.7'
 					}
 				},
+				'glow': {
+					'0%, 100%': {
+						textShadow: '0 0 5px rgba(255,255,255,0.5)'
+					},
+					'50%': {
+						textShadow: '0 0 20px rgba(255,255,255,0.8)'
+					}
+				},
+				'scale-pulse': {
+					'0%, 100%': {
+						transform: 'scale(1)'
+					},
+					'50%': {
+						transform: 'scale(1.05)'
+					}
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -150,6 +166,8 @@ export default {
 				'text-reveal': 'text-reveal 1s ease-out forwards',
 				'float': 'float 3s ease-in-out infinite',
 				'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
+				'glow': 'glow 2s ease-in-out infinite',
+				'scale-pulse': 'scale-pulse 2s ease-in-out infinite',
 			}
 		}
 	},
