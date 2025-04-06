@@ -1,8 +1,15 @@
 
 import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Register GSAP plugins
+  gsap.registerPlugin(TextPlugin);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -69,19 +76,55 @@ const Hero = () => {
     };
   }, []);
 
+  // GSAP animations
+  useEffect(() => {
+    if (containerRef.current) {
+      // Animate content elements
+      gsap.from(".hero-content h1 span", {
+        y: 100,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 1,
+        ease: "power3.out"
+      });
+
+      gsap.from(".hero-content p", {
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        delay: 0.8,
+        ease: "power2.out"
+      });
+
+      gsap.from(".hero-content .button-group", {
+        y: 20,
+        opacity: 0,
+        duration: 0.8,
+        delay: 1.2,
+        ease: "back.out(1.7)"
+      });
+    }
+  }, []);
+
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+      {/* Canvas background */}
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full bg-black" />
-      <div className="container relative z-10 text-center">
+      
+      {/* Dark overlay for better text visibility */}
+      <div className="absolute inset-0 bg-black/60 z-[1]"></div>
+      
+      {/* Main content */}
+      <div ref={containerRef} className="container relative z-10 text-center hero-content">
         <div className="max-w-4xl mx-auto">
-          <h1 className="overflow-text heading-xl mb-6">
-            <span className="block" style={{ animationDelay: '0.1s' }}>Crafting Digital</span>
-            <span className="block text-gradient" style={{ animationDelay: '0.3s' }}>Excellence</span>
+          <h1 ref={headingRef} className="heading-xl mb-6">
+            <span className="block inline-block">Crafting Digital</span>
+            <span className="block text-gradient mt-2 inline-block">Excellence</span>
           </h1>
-          <p className="text-lg md:text-xl text-street-silver max-w-2xl mx-auto mb-10 opacity-0 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+          <p className="text-lg md:text-xl text-street-silver max-w-2xl mx-auto mb-10">
             We transform your digital presence with cutting-edge web development and strategic marketing solutions that drive results.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center button-group">
             <a 
               href="#services" 
               className="bg-street-white text-street-black px-8 py-4 rounded-full font-medium 
@@ -99,7 +142,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-10 left-0 right-0 mx-auto w-6 h-10">
+      <div className="absolute bottom-10 left-0 right-0 mx-auto w-6 h-10 z-10">
         <div className="w-full h-full border-2 border-street-silver rounded-full flex items-start justify-center">
           <span className="block w-1 h-2 bg-street-white rounded-full animate-bounce mt-2"></span>
         </div>
