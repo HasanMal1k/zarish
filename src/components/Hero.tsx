@@ -3,12 +3,14 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 
+const HERO_BG =
+  'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1600&q=80';
+
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Register GSAP plugins
   gsap.registerPlugin(TextPlugin);
 
   useEffect(() => {
@@ -35,15 +37,14 @@ const Hero = () => {
           const centerX = x * gridSize;
           const centerY = y * gridSize;
           const distanceFromCenter = Math.sqrt(
-            Math.pow(centerX - canvas.width / 2, 2) + 
+            Math.pow(centerX - canvas.width / 2, 2) +
             Math.pow(centerY - canvas.height / 2, 2)
           );
           const maxDistance = Math.sqrt(
-            Math.pow(canvas.width / 2, 2) + 
+            Math.pow(canvas.width / 2, 2) +
             Math.pow(canvas.height / 2, 2)
           );
           const normalizedDistance = distanceFromCenter / maxDistance;
-          
           const waveOffset = Math.sin(normalizedDistance * 10 - time) * 0.5 + 0.5;
           const size = gridSize * waveOffset * 0.8;
 
@@ -76,10 +77,8 @@ const Hero = () => {
     };
   }, []);
 
-  // GSAP animations
   useEffect(() => {
     if (containerRef.current) {
-      // Animate content elements
       gsap.from(".hero-content h1 span", {
         y: 100,
         opacity: 0,
@@ -108,33 +107,65 @@ const Hero = () => {
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Canvas background */}
-      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full bg-black" />
+      {/* Animated canvas background, sits at the very bottom */}
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full bg-black z-0" />
       
-      {/* Dark overlay for better text visibility */}
-      <div className="absolute inset-0 bg-black/60 z-[1]"></div>
-      
+      {/* Tech-themed image for text masking */}
+      <img
+        src={HERO_BG}
+        alt="Tech background"
+        className="absolute inset-0 w-full h-full object-cover z-[1] pointer-events-none select-none"
+        style={{ maskImage: "none", WebkitMaskImage: "none" }}
+        draggable={false}
+      />
+
+      {/* Overlay: make text more visible on image */}
+      <div className="absolute inset-0 bg-black/60 z-[2]"></div>
+
       {/* Main content */}
       <div ref={containerRef} className="container relative z-10 text-center hero-content">
         <div className="max-w-4xl mx-auto">
           <h1 ref={headingRef} className="heading-xl mb-6">
-            <span className="block inline-block">Crafting Digital</span>
-            <span className="block text-gradient mt-2 inline-block">Excellence</span>
+            {/* We mask these spans so the text appears filled by the image */}
+            <span
+              className="block inline-block bg-clip-text text-transparent"
+              style={{
+                backgroundImage: `url('${HERO_BG}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              Crafting Digital
+            </span>
+            <span
+              className="block inline-block mt-2 bg-clip-text text-transparent"
+              style={{
+                backgroundImage: `url('${HERO_BG}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              Excellence
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-street-silver max-w-2xl mx-auto mb-10">
+          <p className="text-lg md:text-xl text-street-silver max-w-2xl mx-auto mb-10 relative z-10">
             We transform your digital presence with cutting-edge web development and strategic marketing solutions that drive results.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center button-group">
-            <a 
-              href="#services" 
-              className="bg-street-white text-street-black px-8 py-4 rounded-full font-medium 
+            <a
+              href="#services"
+              className="bg-street-white text-street-black px-8 py-3 rounded-full font-medium
               hover:bg-opacity-90 transition-all duration-300"
             >
               Our Services
             </a>
-            <a 
-              href="#contact" 
-              className="border border-street-silver px-8 py-4 rounded-full font-medium 
+            <a
+              href="#contact"
+              className="border border-street-silver px-8 py-3 rounded-full font-medium
               hover:bg-street-white hover:text-street-black transition-all duration-300"
             >
               Get in Touch
