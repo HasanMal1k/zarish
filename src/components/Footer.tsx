@@ -1,15 +1,14 @@
-
 import React from 'react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="bg-black py-16 container-padding border-t border-gray-800">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <a href="/" className="text-xl font-bold tracking-tight text-gradient">StreetSmart</a>
+            <a href="/" className="text-xl font-bold tracking-tight text-gradient">Zarish</a>
             <p className="mt-4 text-street-silver">
               Transforming businesses through innovative digital solutions.
             </p>
@@ -35,30 +34,29 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
               <li><a href="#" className="text-street-silver hover:text-street-white transition-colors">Web Development</a></li>
               <li><a href="#" className="text-street-silver hover:text-street-white transition-colors">Digital Marketing</a></li>
-              <li><a href="#" className="text-street-silver hover:text-street-white transition-colors">Branding</a></li>
-              <li><a href="#" className="text-street-silver hover:text-street-white transition-colors">E-commerce</a></li>
-              <li><a href="#" className="text-street-silver hover:text-street-white transition-colors">No-Code Solutions</a></li>
+              <li><a href="#" className="text-street-silver hover:text-street-white transition-colors">AI Solutions</a></li>
+              <li><a href="#" className="text-street-silver hover:text-street-white transition-colors">App Development</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2">
-              <li className="text-street-silver">contact@streetsmartdigital.com</li>
-              <li className="text-street-silver">+1 (555) 123-4567</li>
-              <li className="text-street-silver">123 Innovation Street, Tech City</li>
+              <li className="text-street-silver">teamzarish@gmail.com</li>
+              <li className="text-street-silver">+92 318 8187431</li>
+              <li className="text-street-silver">Gulberg, Islamabad, Pakistan</li>
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-street-silver text-sm">&copy; {currentYear} StreetSmart Digital Agency. All rights reserved.</p>
+          <p className="text-street-silver text-sm">&copy; {currentYear} Zarish Digital Agency. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-sm text-street-silver hover:text-street-white transition-colors">Privacy Policy</a>
             <a href="#" className="text-sm text-street-silver hover:text-street-white transition-colors">Terms of Service</a>
