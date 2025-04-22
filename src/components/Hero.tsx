@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 
-// This is a studio photoshoot/lights image from Unsplash
+// Using a bright tech-related image from Unsplash
 const MASK_IMAGE =
-  'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1200&q=80';
+  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80';
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
