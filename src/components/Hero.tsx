@@ -1,10 +1,10 @@
-
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 
-const HERO_BG =
-  'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1600&q=80';
+// This is a studio photoshoot/lights image from Unsplash
+const MASK_IMAGE =
+  'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1200&q=80';
 
 const Hero = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -109,16 +109,8 @@ const Hero = () => {
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
       {/* Animated canvas background, sits at the very bottom */}
       <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full bg-black z-0" />
-      
-      {/* Tech-themed image for text masking */}
-      <img
-        src={HERO_BG}
-        alt="Tech background"
-        className="absolute inset-0 w-full h-full object-cover z-[1] pointer-events-none select-none"
-        style={{ maskImage: "none", WebkitMaskImage: "none" }}
-        draggable={false}
-      />
 
+      {/* NO background image mask, keep only canvas for BG */}
       {/* Overlay: make text more visible on image */}
       <div className="absolute inset-0 bg-black/60 z-[2]"></div>
 
@@ -126,11 +118,10 @@ const Hero = () => {
       <div ref={containerRef} className="container relative z-10 text-center hero-content">
         <div className="max-w-4xl mx-auto">
           <h1 ref={headingRef} className="heading-xl mb-6">
-            {/* We mask these spans so the text appears filled by the image */}
             <span
               className="block inline-block bg-clip-text text-transparent"
               style={{
-                backgroundImage: `url('${HERO_BG}')`,
+                backgroundImage: `url('${MASK_IMAGE}')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 WebkitBackgroundClip: 'text',
@@ -142,7 +133,7 @@ const Hero = () => {
             <span
               className="block inline-block mt-2 bg-clip-text text-transparent"
               style={{
-                backgroundImage: `url('${HERO_BG}')`,
+                backgroundImage: `url('${MASK_IMAGE}')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 WebkitBackgroundClip: 'text',
