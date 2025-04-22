@@ -30,25 +30,18 @@ const Navbar = () => {
         <a 
           href="/" 
           className="text-2xl font-bold tracking-tight text-gradient"
-          aria-label="StreetSmart"
+          aria-label="Zarish"
         >
-          StreetSmart
+          Zarish
         </a>
         
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="flex items-center gap-8">
           <a href="#services" className="nav-link">Services</a>
           <a href="#about" className="nav-link">About</a>
           <a href="#contact" className="nav-link">Contact</a>
         </nav>
         
-        <a 
-          href="#contact" 
-          className="hidden md:flex items-center justify-center border border-street-silver px-5 py-2 rounded-full 
-            hover:bg-street-white hover:text-street-black transition-all duration-300"
-        >
-          Get Started
-        </a>
-        
+        {/* Removed the Get Started button */}
         <button className="md:hidden flex items-center justify-center p-2">
           <span className="sr-only">Open menu</span>
           <svg
